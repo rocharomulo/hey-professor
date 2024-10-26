@@ -15,8 +15,6 @@ it('shoud be able to create a question bigger than 255 chars', function () {
         'question' => str_repeat('*', 260) . '?',
     ]);
 
-    //dd($request);
-
     //Assert (Verificar)
     $request->assertRedirect(route('dashboard'));
     assertDatabaseCount('questions', 1);
@@ -24,7 +22,18 @@ it('shoud be able to create a question bigger than 255 chars', function () {
 });
 
 it('shoud check if ends with question mark', function () {
-    //
+    //Arrange (preparar),
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    //Act (Agir)
+    $request = $this->withoutMiddleware()->post(route('question.store'), [
+        'question' => str_repeat('*', 8) . '?',
+    ]);
+
+    //Assert (Verificar)
+    $request->assertSectionHasErrors(['question']);
+    assertDatabaseCount('questions', 0);
 });
 
 it('should have at least 10 characters', function () {
