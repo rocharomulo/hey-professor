@@ -26,7 +26,17 @@ it('shoud be able to create a question bigger than 255 chars', function () {
 });
 
 it('shoud check if ends with question mark', function () {
-    //
+    //Arrange (preparar),
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    //Act (Agir)
+    $request = $this->withoutMiddleware()->post(route('question.store'), [
+        'question' => str_repeat('*', 10),
+    ]);
+
+    //Assert (Verificar)
+    $request->assertSessionHasErrors(['question' => "Are you sure that it is a question? It is missing the question mark in the end."]);
 });
 
 it('should have at least 10 characters', function () {
@@ -40,6 +50,6 @@ it('should have at least 10 characters', function () {
     ]);
 
     //Assert (Verificar)
-    // $request->assertSessionHasErrors(['question']);
+    $request->assertSessionHasErrors(['question']);
     assertDatabaseCount('questions', 0);
 });
