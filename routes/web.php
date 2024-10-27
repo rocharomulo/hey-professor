@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, ProfileController, QuestionController};
+use App\Http\Controllers\{DashboardController, ProfileController, Question, QuestionController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
+Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
