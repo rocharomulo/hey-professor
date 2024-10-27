@@ -22,8 +22,8 @@
             <div class="dark:text-gray-400 uppercase font-bold mb-2">List of Questions</div>
 
             <div class="dark:text-gray-400 space-y-3">
-                @foreach ($questions as $item)
-                    <x-question :question="$item->question" />
+                @foreach ($questions as $question)
+                    <x-question :$question />
                 @endforeach
             </div>
 
