@@ -20,3 +20,17 @@ it('should be able to like a question', function () {
         'user_id'     => $user->id,
     ]);
 });
+
+it('shoud not be able to like more than once', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $question = Question::factory()->create();
+
+    post(route('question.like', $question))->assertRedirect();
+    post(route('question.like', $question))->assertRedirect();
+    post(route('question.like', $question))->assertRedirect();
+    post(route('question.like', $question))->assertRedirect();
+
+    expect($user->votes()->where('question_id', $question->id)->get())->toHaveCount(1);
+});
