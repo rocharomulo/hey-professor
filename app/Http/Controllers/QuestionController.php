@@ -22,7 +22,8 @@ class QuestionController extends Controller
             ],
         ]);
 
-        $attributes['draft'] = true;
+        $attributes['draft']      = true;
+        $attributes['created_by'] = user()->id;
 
         Question::create($attributes);
 
