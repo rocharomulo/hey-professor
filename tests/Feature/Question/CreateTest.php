@@ -17,10 +17,9 @@ it('shoud be able to create a question bigger than 255 chars', function () {
 
     $response = $this->post(route('question.store'), [
         'question' => str_repeat('*', 260) . '?',
-    ]);
+    ])->assertRedirect();
 
     //Assert (Verificar)
-    $response->assertRedirect(route('dashboard'));
     assertDatabaseCount('questions', 2);
     assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?']);
 });

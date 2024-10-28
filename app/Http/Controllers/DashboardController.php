@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function __invoke(): View
     {
-        $questions = Question::with('votes')->get();
+        $questions = Question::with('votes')->where('draft', false)->get();
 
         return view('dashboard', compact('questions'));
     }

@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Closure;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse};
 
 class QuestionController extends Controller
 {
+    public function index(): View
+    {
+        $questions = user()->questions()->with('votes')->get();
+
+        return view('question.index', compact('questions'));
+    }
+
     public function store(): RedirectResponse
     {
         $attributes = request()->validate([
@@ -27,6 +35,6 @@ class QuestionController extends Controller
 
         Question::create($attributes);
 
-        return to_route('dashboard');
+        return back();
     }
 }
