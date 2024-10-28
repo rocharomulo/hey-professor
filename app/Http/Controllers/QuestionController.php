@@ -22,6 +22,8 @@ class QuestionController extends Controller
             ],
         ]);
 
+        $attributes['draft'] = true;
+
         Question::create($attributes);
 
         return to_route('dashboard');
