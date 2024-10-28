@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Question;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
-use Illuminate\Http\{RedirectResponse, Response};
+use Illuminate\Http\{RedirectResponse};
 
 class PublishController extends Controller
 {
@@ -12,8 +12,6 @@ class PublishController extends Controller
     {
 
         $this->authorize('publish', $question);
-
-        abort_unless(user()->can('publish', $question), Response::HTTP_FORBIDDEN);
 
         $question->draft = false;
         $question->save();
