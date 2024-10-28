@@ -34,3 +34,34 @@ it('shoud not be able to like more than once', function () {
 
     expect($user->votes()->where('question_id', $question->id)->get())->toHaveCount(1);
 });
+
+it('should be able to unlike a question', function () {
+
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $question = Question::factory()->create();
+
+    post(route('question.unlike', $question))->assertRedirect();
+
+    assertDatabaseHas('votes', [
+        'question_id' => $question->id,
+        'like'        => 0,
+        'unlike'      => 1,
+        'user_id'     => $user->id,
+    ]);
+});
+
+it('shoud not be able to unlike more than once', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $question = Question::factory()->create();
+
+    post(route('question.unlike', $question))->assertRedirect();
+    post(route('question.unlike', $question))->assertRedirect();
+    post(route('question.unlike', $question))->assertRedirect();
+    post(route('question.unlike', $question))->assertRedirect();
+
+    expect($user->votes()->where('question_id', $question->id)->get())->toHaveCount(1);
+});
