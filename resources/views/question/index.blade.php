@@ -35,11 +35,13 @@
                             <x-table.tr>
                                 <x-table.td>{{ $question->question }}</x-table.td>
                                 <x-table.td>
-                                    <x-form delete :action="route('question.destroy', $question)">
-                                        <button class='hover:underline text-blue-500'>Delete</button>
-                                    </x-form>
                                     <x-form put :action="route('question.publish', $question)">
                                         <button class='hover:underline text-blue-500'>Publish</button>
+                                    </x-form>
+                                    <a href="{{ route('question.edit', $question) }}"
+                                        lass='hover:underline text-blue-500'>Edit</a>
+                                    <x-form delete :action="route('question.destroy', $question)">
+                                        <button class='hover:underline text-blue-500'>Delete</button>
                                     </x-form>
                                 </x-table.td>
                             </x-table.tr>
@@ -64,6 +66,8 @@
                             <x-table.tr>
                                 <x-table.td>{{ $question->question }}</x-table.td>
                                 <x-table.td>
+                                    <a href="{{ route('question.edit', $question) }}"
+                                        lass='hover:underline text-blue-500'>Edit</a>
                                     <x-form delete :action="route('question.destroy', $question)">
                                         <button class='hover:underline text-blue-500'>Delete</button>
                                     </x-form>
