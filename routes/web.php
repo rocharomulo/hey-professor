@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/question/unlike/{question}', Question\UnlikeController::class)->name('question.unlike');
     Route::put('/question/publish/{question}', Question\PublishController::class)->name('question.publish');
     Route::get('/question', [QuestionController::class, 'index'])->name('question.index');
+    Route::delete('/question/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 });
 
 Route::middleware('auth')->group(function () {
