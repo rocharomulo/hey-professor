@@ -9,7 +9,7 @@
 
             <x-form post :action="route('question.store')">
 
-                <x-textarea label='Question' name='question' />
+                <x-textarea label='New Question' name='question' />
 
                 <x-btn.primary>Save</x-btn.primary>
 
@@ -39,9 +39,9 @@
                                         <button class='hover:underline text-blue-500'>Publish</button>
                                     </x-form>
                                     <a href="{{ route('question.edit', $question) }}"
-                                        lass='hover:underline text-blue-500'>Edit</a>
+                                        class='hover:underline text-blue-500'>Edit</a>
                                     <x-form delete :action="route('question.destroy', $question)">
-                                        <button class='hover:underline text-blue-500'>Delete</button>
+                                        <button class='hover:underline text-blue-500'>Update</button>
                                     </x-form>
                                 </x-table.td>
                             </x-table.tr>

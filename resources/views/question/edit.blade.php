@@ -1,7 +1,7 @@
     <x-app-layout>
         <x-slot name="header">
             <x-header>
-                My Questions
+                Edit Question {{ $question->id }}
             </x-header>
         </x-slot>
 
