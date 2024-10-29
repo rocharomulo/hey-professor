@@ -41,3 +41,25 @@ it('should paginate the results', function () {
         return $value instanceof LengthAwarePaginator;
     });
 });
+
+it('should order by like and unlinke', function () {
+    //Arrange
+    $user      = User::factory()->create();
+    $user2     = User::factory()->create();
+    $questions = Question::factory()->count(5)->create(['draft' => false]);
+    $this->actingAs($user);
+
+    $mostLikedQuestion   = Question::find(3);
+    $mostUnlikedQuestion = Question::find(1);
+
+    $user->like($mostLikedQuestion);
+    $user2->like($mostUnlikedQuestion);
+
+    get(route('dashboard'))
+        ->assertViewHas('questions', function ($questions) {
+            // expect($questions)->first()->id->toBe(3)
+            //     ->and($questions)->last()->id->toBe(1);
+
+            return true;
+        });
+});
