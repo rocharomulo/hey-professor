@@ -7,7 +7,7 @@ use function Pest\Laravel\{actingAs, get};
 it('should be able to list all questions created by me', function () {
 
     $wrongUser      = User::factory()->create();
-    $wrongQuestions = Question::factory()->for($wrongUser, 'createdBy')->count(10)->create();
+    $wrongQuestions = Question::factory()->for($wrongUser, 'createdBy')->count(10)->create(['draft' => true]);
 
     $rightUser = User::factory()->create();
     $questions = Question::factory()->for($rightUser, 'createdBy')->count(10)->create();
