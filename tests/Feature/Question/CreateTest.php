@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\User;
+use App\Models\{Question, User};
 
-use function Pest\Laravel\{assertDatabaseCount, assertDatabaseHas};
+use function Pest\Laravel\{assertDatabaseCount, assertDatabaseHas, post};
 
 it('shoud be able to create a question bigger than 255 chars', function () {
 
@@ -75,4 +75,16 @@ test('only authenticated users can create new question', function () {
     $this->post(route('question.store'), [
         'question' => str_repeat('*', 260) . '?',
     ])->assertRedirect(route('login'));
+});
+
+test('question should be unique', function () {
+    //Arrange (preparar),
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    Question::factory()->create(['question' => 'Alguma pergunta?']);
+
+    post(route('question.store'), [
+        'question' => 'Alguma pergunta?',
+    ])->assertSessionHasErrors(['question' => 'Question already exists.']);
 });
