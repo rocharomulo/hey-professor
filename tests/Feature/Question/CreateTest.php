@@ -20,7 +20,7 @@ it('shoud be able to create a question bigger than 255 chars', function () {
     ])->assertRedirect();
 
     //Assert (Verificar)
-    assertDatabaseCount('questions', 2);
+    assertDatabaseCount('questions', 1);
     assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?']);
 });
 
