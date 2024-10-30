@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/dashboard/{search?}', DashboardController::class)->name('dashboard');
 
     // Questions
     Route::get('/question', [QuestionController::class, 'index'])->name('question.index');
