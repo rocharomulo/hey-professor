@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/question/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
     Route::put('/question/{question}', [QuestionController::class, 'update'])->name('question.update');
     Route::delete('/question/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+    Route::patch('/question/{question}', [QuestionController::class, 'archive'])->name('question.archive');
 
     Route::put('/question/publish/{question}', Question\PublishController::class)->name('question.publish');
     Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');

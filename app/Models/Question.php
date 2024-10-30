@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 
 class Question extends Model
 {
@@ -12,6 +12,7 @@ class Question extends Model
     //protected $guarded = [];
 
     use HasFactory;
+    use SoftDeletes;
 
     protected $casts = [
         'draft' => 'bool',
